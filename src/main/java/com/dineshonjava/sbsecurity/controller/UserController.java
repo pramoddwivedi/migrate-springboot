@@ -3,7 +3,7 @@
  */
 package com.dineshonjava.sbsecurity.controller;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,11 +13,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dineshonjava.sbsecurity.bean.UserBean;
@@ -58,15 +59,15 @@ public class UserController {
     }
 	
 	@PreAuthorize("hasAuthority('ADMIN')")
-    @RequestMapping(value = "/user/create", method = RequestMethod.GET)
+    @GetMapping("/user/create")
     public ModelAndView getUserCreatePage() {
     	 LOGGER.debug("Getting user create form");
         return new ModelAndView("user_create", "form", new UserBean());
     }
     
 	@PreAuthorize("hasAuthority('ADMIN')")
-    @RequestMapping(value = "/user/create", method = RequestMethod.POST)
-    public String handleUserCreateForm(@Valid @ModelAttribute("form") UserBean form, BindingResult bindingResult) {
+    @PostMapping("/user/create")
+    public String handleUserCreateForm(@Valid @ModelAttribute UserBean form, BindingResult bindingResult) {
     	 LOGGER.debug("Processing user create form={}, bindingResult={}", form, bindingResult);
         if (bindingResult.hasErrors()) {
             return "user_create";

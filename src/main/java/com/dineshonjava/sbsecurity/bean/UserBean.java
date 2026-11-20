@@ -3,9 +3,8 @@
  */
 package com.dineshonjava.sbsecurity.bean;
 
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotEmpty;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import com.dineshonjava.sbsecurity.role.Role;
 
